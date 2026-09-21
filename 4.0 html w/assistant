@@ -280,7 +280,7 @@
         .notification-pop b{font-size:11px;display:block}.notification-pop span{font-size:10px;color:#c6c8cc;display:block;margin-top:2px}.notification-pop small{font-size:8px;color:#8e9298;display:block;margin-top:5px;}
         @keyframes notificationIn{from{opacity:0;transform:translateX(18px) scale(.96)}to{opacity:1;transform:none}}
         .notification-pop.out{opacity:0;transform:translateX(18px);transition:.25s;}
-        .minimal-icon{filter:grayscale(1);font-family:ui-sans-serif,system-ui,sans-serif;font-weight:500;}
+        .minimal-icon{filter:grayscale(1);font-family:ui-sans-serif,system-ui,sans-serif;font-weight:500;} body.icons-normal .minimal-icon{filter:none;}
         #dock {
             position: absolute;
             bottom: 10px;
@@ -879,11 +879,56 @@
         }
 
         .browser-page {
-            height: 100%;
-            min-height: 350px;
-            padding: 34px;
+            flex: 1;
+            min-height: 0;
+            padding: 0;
             background: radial-gradient(circle at 50% 10%, rgba(77, 163, 255, .18), transparent 40%);
-            overflow: auto
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .browser-frame-wrap {
+            flex: 1;
+            min-height: 0;
+            min-width: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #fff
+        }
+
+        .browser-frame-head {
+            flex: 0 0 34px;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px 0 12px;
+            box-sizing: border-box;
+            background: rgba(18, 20, 26, .94);
+            border-bottom: 1px solid rgba(255,255,255,.10);
+            color: #fff;
+            font-size: 11px;
+            z-index: 2
+        }
+
+        .browser-inline-frame {
+            display: block;
+            flex: 1 1 auto;
+            width: 100%;
+            height: auto;
+            min-height: 0;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            background: #fff
+        }
+
+        .luma-browser-frame {
+            border-radius: 0;
         }
 
         .newtab-page {
@@ -1382,31 +1427,7 @@
         }
     
 
-/* LUMA 3.36 — Added LUMA AI with a ChatGPT handoff and a simulated virtual machine.
-  - 3.34 — crisp HTML Glass Workspace home screen */
-#desktop.home-glass-dashboard #homeClock{display:none}
-#desktop.home-glass-dashboard #desktopIcons{opacity:.9}
-#desktop.home-glass-dashboard .widget-add{bottom:18px;right:18px}
-.home-glass-wrap{position:absolute;left:50%;top:56px;transform:translateX(-50%);width:min(980px,calc(100vw - 120px));height:min(610px,calc(100vh - 105px));min-height:420px;pointer-events:auto;color:#f4f5f7;animation:glassHomeIn .65s cubic-bezier(.16,1.2,.3,1)}
-@keyframes glassHomeIn{from{opacity:0;transform:translateX(-50%) translateY(18px) scale(.97)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
-.home-glass-shell{position:relative;width:100%;height:100%;border:1px solid rgba(255,255,255,.17);border-radius:28px;background:linear-gradient(145deg,rgba(25,27,31,.54),rgba(7,9,12,.34));backdrop-filter:blur(24px) saturate(120%);box-shadow:0 35px 100px rgba(0,0,0,.42),inset 0 1px rgba(255,255,255,.12);overflow:hidden}
-.home-glass-shell:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 20%,rgba(255,255,255,.11),transparent 30%),radial-gradient(circle at 12% 88%,rgba(100,150,255,.08),transparent 34%);pointer-events:none}
-.hg-top{height:54px;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid rgba(255,255,255,.09);position:relative;z-index:2}
-.hg-dots{display:flex;gap:5px}.hg-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}
-.hg-brand{font-size:12px;font-weight:700;letter-spacing:.2px}.hg-sub{font-size:9px;color:#858991;margin-left:2px}
-.hg-search{margin-left:auto;width:min(270px,30vw);height:30px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(255,255,255,.055);color:#eee;padding:0 13px;outline:none;font-size:10px}.hg-search::placeholder{color:#72767d}.hg-search:focus{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.075)}
-.hg-layout{display:grid;grid-template-columns:148px 1fr;height:calc(100% - 54px);position:relative;z-index:1}
-.hg-side{padding:14px 10px;border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:5px}.hg-side-label{font-size:8px;letter-spacing:1.2px;color:#676b72;padding:6px 8px}.hg-side button{display:flex;align-items:center;gap:9px;width:100%;border:1px solid transparent;border-radius:10px;background:transparent;color:#aeb1b7;padding:9px 10px;text-align:left;font-size:10px;cursor:pointer;transition:.2s}.hg-side button:hover,.hg-side button.active{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.08);color:#fff;transform:translateX(2px)}.hg-side .hg-mini-icon{width:17px;text-align:center;color:#c9cbd0;font-size:13px}
-.hg-main{padding:18px 20px;overflow:auto}.hg-welcome{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}.hg-kicker{font-size:8px;letter-spacing:1.5px;color:#70747b;font-weight:700}.hg-welcome h1{margin:3px 0 0;font-size:27px;letter-spacing:-1px;font-weight:650}.hg-welcome p{margin:5px 0 0;color:#858990;font-size:10px}.hg-time{text-align:right}.hg-time strong{display:block;font-size:25px;font-weight:350;letter-spacing:-1px}.hg-time span{font-size:8px;color:#73777e}
-.hg-hero{display:grid;grid-template-columns:1.35fr .65fr;gap:10px}.hg-card{border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.045);box-shadow:inset 0 1px rgba(255,255,255,.045),0 14px 30px rgba(0,0,0,.14);overflow:hidden}.hg-feature{min-height:190px;padding:18px;position:relative;background:radial-gradient(circle at 85% 25%,rgba(117,155,220,.2),transparent 35%),linear-gradient(135deg,rgba(255,255,255,.045),rgba(255,255,255,.015))}.hg-feature:after{content:"";position:absolute;width:150px;height:150px;right:-40px;bottom:-65px;border-radius:50%;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 25px rgba(255,255,255,.018),0 0 0 50px rgba(255,255,255,.012)}.hg-feature h2{margin:5px 0 7px;font-size:21px;font-weight:600;letter-spacing:-.5px}.hg-feature p{max-width:410px;color:#898d94;font-size:10px;line-height:1.55;margin:0}.hg-actions{display:flex;gap:7px;margin-top:15px;position:relative;z-index:2}.hg-action{border:1px solid rgba(255,255,255,.11);border-radius:9px;background:rgba(255,255,255,.07);color:#eee;padding:8px 11px;font-size:9px;cursor:pointer;transition:.2s}.hg-action:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
-.hg-stat{padding:14px}.hg-stat b{font-size:9px;color:#777b82;display:block}.hg-stat strong{display:block;font-size:24px;font-weight:400;margin-top:12px}.hg-stat span{display:block;font-size:9px;color:#70747a;margin-top:3px}.hg-progress{height:4px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:15px;overflow:hidden}.hg-progress i{display:block;height:100%;width:62%;background:rgba(255,255,255,.6);border-radius:99px}
-.hg-section{margin-top:14px}.hg-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}.hg-section-head b{font-size:11px}.hg-section-head span{font-size:8px;color:#676b72}.hg-apps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.hg-app{border:1px solid rgba(255,255,255,.08);border-radius:13px;background:rgba(255,255,255,.035);color:#ddd;padding:12px;text-align:left;cursor:pointer;transition:.22s}.hg-app:hover{background:rgba(255,255,255,.08);transform:translateY(-2px);border-color:rgba(255,255,255,.14)}.hg-app-icon{width:30px;height:30px;display:grid;place-items:center;border-radius:9px;background:rgba(255,255,255,.065);font-size:17px;color:#ddd;margin-bottom:9px}.hg-app b{display:block;font-size:9px}.hg-app small{display:block;color:#686c73;font-size:8px;margin-top:3px}
-.hg-bottom{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.hg-list{padding:12px}.hg-list-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06)}.hg-list-row:last-child{border-bottom:0}.hg-list-icon{width:25px;height:25px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.055);font-size:12px}.hg-list-row b{font-size:9px}.hg-list-row small{display:block;color:#696d74;font-size:7px;margin-top:2px}
-.hg-close{position:absolute;right:11px;top:11px;z-index:5;width:24px;height:24px;border:1px solid rgba(255,255,255,.08);border-radius:8px;background:rgba(0,0,0,.18);color:#858990;cursor:pointer}.hg-close:hover{color:#fff;background:rgba(255,255,255,.08)}
-#desktop.home-glass-dashboard #desktopIcons{filter:drop-shadow(0 5px 14px rgba(0,0,0,.28))}
-.glass-layout-choice{min-height:125px!important;background:radial-gradient(circle at 72% 25%,rgba(255,255,255,.16),transparent 30%),linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important}
-@media(max-width:900px){.home-glass-wrap{width:calc(100vw - 70px);height:calc(100vh - 90px)}.hg-layout{grid-template-columns:112px 1fr}.hg-apps{grid-template-columns:repeat(2,1fr)}.hg-hero{grid-template-columns:1fr}.hg-bottom{grid-template-columns:1fr}.hg-time{display:none}}
-@media(max-width:620px){.home-glass-wrap{left:10px;transform:none;width:calc(100vw - 20px);top:48px;height:calc(100vh - 70px)}.hg-layout{grid-template-columns:1fr}.hg-side{display:none}.hg-search{width:120px}.hg-welcome h1{font-size:21px}}
+/* LUMA 3.36 — LUMA AI and desktop updates */
 
 /* LUMA 2.4 additions */
 .wallpaper-animated::before{content:"";position:absolute;inset:-20%;background:radial-gradient(circle at 20% 20%,rgba(77,163,255,.38),transparent 28%),radial-gradient(circle at 80% 70%,rgba(160,80,255,.32),transparent 30%),radial-gradient(circle at 55% 45%,rgba(0,220,190,.18),transparent 25%);filter:blur(35px);animation:wallFloat 14s ease-in-out infinite alternate;pointer-events:none}
@@ -1575,7 +1596,7 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
         .dock-app:active{transform:translateY(-9px) scale(1.1);}
         .dock-app.active:after{bottom:-5px;width:4px;height:4px;}
         .dock-divider{height:50px;margin:0 3px 3px;background:rgba(255,255,255,.2);}
-        .dock-tooltip{position:fixed;z-index:10000;pointer-events:none;padding:6px 9px;border-radius:8px;background:rgba(30,30,32,.88);border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(18px);color:#f5f5f7;font-size:11px;white-space:nowrap;opacity:0;transform:translate(-50%,6px);transition:opacity .14s,transform .14s;}
+        .deskIcon[data-id=\"trash\"]{transition:transform .2s,filter .2s}.deskIcon[data-id=\"trash\"].trash-drop-hover{transform:scale(1.18);filter:drop-shadow(0 0 12px rgba(255,255,255,.45))}.dock-tooltip{position:fixed;z-index:10000;pointer-events:none;padding:6px 9px;border-radius:8px;background:rgba(30,30,32,.88);border:1px solid rgba(255,255,255,.15);box-shadow:0 8px 24px rgba(0,0,0,.35);backdrop-filter:blur(18px);color:#f5f5f7;font-size:11px;white-space:nowrap;opacity:0;transform:translate(-50%,6px);transition:opacity .14s,transform .14s;}
         .dock-tooltip.show{opacity:1;transform:translate(-50%,0);}
 
         .dock-app{width:56px;height:56px;border-radius:14px;background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(30,30,34,.86));border:1px solid rgba(255,255,255,.12);box-shadow:0 4px 12px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.14);font-size:29px;}
@@ -1820,7 +1841,8 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
             trash: { name:"Trash", icon:"🗑️", w:760, h:560 },
             taskmanager: { name:"Task Manager", icon:"◫", w:820, h:590, renderer:"taskmanager" },
             appcustomizer: { name:"App Customizer", icon:"🎨", w:720, h:560, renderer:"appcustomizer" },
-            luma_ai: { name:"LUMA AI", icon:"✦", w:820, h:600, renderer:"luma_ai" }
+            luma_ai: { name:"LUMA AI", icon:"✦", w:820, h:600, renderer:"luma_ai" },
+            adaptive_icons: { name:"Adaptive Icons", icon:"🌈", w:620, h:430, renderer:"adaptive_icons" }
         };
         let state = JSON.parse(localStorage.getItem("luma_state") || "null") || {
             theme: "dark",
@@ -1830,7 +1852,7 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
             wallpaperClass: "",
             wallpaperFit: "cover",
             homeModule: null,
-            homeStyle: "glass-dashboard",
+            homeStyle: "",
             retroAero: false,
             homeIcons: {},
             homeHidden: [],
@@ -1898,7 +1920,10 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
             coolerLoading: false,
             cursorSoundsEnabled: false,
             cursorTheme: "default",
-            soundPack: "bubble"
+            soundPack: "bubble",
+            adaptiveIcons: true,
+            iconColorMode: "grayscale",
+            wallpaperMainColor: "#111216"
         };
         // Restore Store-installed/user apps into the live app registry.
         state.soundVolume = typeof state.soundVolume === "number" ? Math.max(0, Math.min(2, state.soundVolume)) : 0.7;
@@ -1913,7 +1938,11 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
         state.notificationsEnabled = state.notificationsEnabled !== false;
         state.cursorTheme = state.cursorTheme || "default";
         state.soundPack = state.soundPack || "bubble";
+        state.adaptiveIcons = state.adaptiveIcons !== false;
+        state.iconColorMode = state.iconColorMode || "grayscale";
+        state.wallpaperMainColor = state.wallpaperMainColor || "#111216";
         applyCursorTheme();
+        applyIconColorMode();
         state.installedApps.forEach(app => {
             if (app && app.id) apps[app.id] = {
                 name: app.name || "Untitled App", icon: app.icon || "🎮",
@@ -2060,14 +2089,14 @@ body.retro-aero .wall-card,.body.retro-aero .ext-card,.body.retro-aero .wall-cho
             if(source && !source.startsWith("linear-gradient")){
                 const img=document.createElement("img");
                 img.src=source; img.alt=""; img.draggable=false;
-                img.onload=()=>{ img.style.opacity="1"; };
+                img.onload=()=>{ img.style.opacity="1"; analyzeWallpaperImage(img); };
                 img.onerror=()=>{ media.innerHTML=""; d.style.backgroundImage="linear-gradient(135deg,#0b0b0d,#111216,#050506)"; notify("Wallpaper Engine","Wallpaper could not be loaded"); };
                 img.style.width="100%"; img.style.height="100%"; img.style.objectFit=state.wallpaperFit||"cover"; img.style.objectPosition="center"; img.style.opacity="0"; img.style.transition="opacity .2s ease";
                 media.appendChild(img);
             } else {
-                d.style.backgroundImage=source||""; d.style.backgroundSize=state.wallpaperFit||"cover"; d.style.backgroundPosition="center";
+                d.style.backgroundImage=source||""; d.style.backgroundSize=state.wallpaperFit||"cover"; d.style.backgroundPosition="center"; analyzeWallpaperFallback(source);
             }
-            renderHomeModule(); renderDesktopIcons();
+            renderHomeModule(); renderDesktopIcons(); applyIconColorMode();
             try{ save(); }catch(e){}
         }
 
@@ -2261,13 +2290,13 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
         let homeHoverId = null;
         const minimalIcons={browser:'◎',files:'▣',calc:'＋',notes:'≡',paint:'◒',terminal:'⌘',settings:'⚙',clockapp:'◷',about:'●',wallpaper:'▧',extensions:'◇',themestudio:'✦',store:'▤',trash:'⌫',appcustomizer:'✎',store_mp3_player:'♫',store_games_website:'▦',store_cooler_loading:'',store_cursor_sounds:'⌁',store_movies:'▶'};
         function minimalIcon(id,fallback){return minimalIcons[id]||fallback||'□';}
-        function iconHTML(a){ return a?.image ? `<img src="${esc(a.image)}" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:14px;filter:grayscale(1)">` : `<span class="minimal-icon">${esc(minimalIcon(a?.id,a?.icon))}</span>`; }
+        function iconHTML(a){ return a?.image ? `<img src="${esc(a.image)}" alt="" style="width:100%;height:100%;object-fit:contain;border-radius:14px">` : `<span class="minimal-icon">${esc(a?.icon || minimalIcon(a?.id,'□'))}</span>`; }
 
         function renderDock() {
             let d = $("dock");
             state.dockHidden = Array.isArray(state.dockHidden) ? state.dockHidden : [];
-            const dockApps = Object.entries(apps).filter(([id]) => !state.dockHidden.includes(id));
-            d.innerHTML = dockApps.map(([id, a], i) => `${i===4 ? '<div class="dock-divider" aria-hidden="true"></div>' : ''}<button class="dock-app ${windows[id]?'active':''}" title="" data-dock-id="${id}" onclick="openApp('${id}')" onmouseenter="showDockTip(event,'${esc(a.name)}')" onmouseleave="hideDockTip()">${iconHTML({...a,id})}</button>`).join("");
+            const dockApps = Object.entries(apps).filter(([id]) => !state.dockHidden.includes(id)).slice(0, 6);
+            d.innerHTML = dockApps.map(([id, a], i) => `${i===4 ? '<div class="dock-divider" aria-hidden="true"></div>' : ''}<button class="dock-app ${windows[id]?'active':''}" title="" data-dock-id="${id}" onclick="openApp('${id}')" onmouseenter="dockHoverId='${esc(id)}';showDockTip(event,'${esc(a.name)}')" onmouseleave="if(dockHoverId==='${esc(id)}')dockHoverId=null;hideDockTip()">${iconHTML({...a,id})}</button>`).join("");
             d.onmouseleave = () => { dockHoverId = null; hideDockTip(); };
         }
 
@@ -2284,11 +2313,38 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
         }
 
         document.addEventListener("keydown", e => {
-            if ((e.ctrlKey||e.metaKey) && e.key === "Backspace") {
-                if(homeHoverId){e.preventDefault();e.stopPropagation();hideHomeApp(homeHoverId);return;}
-                if(dockHoverId){const target=document.querySelector(`.dock-app[data-dock-id="${dockHoverId}"]`);if(target){e.preventDefault();e.stopPropagation();removeFromDock(dockHoverId);}}
+            if (!((e.ctrlKey || e.metaKey) && (e.key === "Backspace" || e.code === "Backspace"))) return;
+            const active = document.activeElement;
+            // Never hijack Ctrl/Backspace while typing in a text field.
+            if (active && (active.matches('input,textarea,[contenteditable="true"]'))) return;
+            let homeId = homeHoverId;
+            let dockId = dockHoverId;
+            // Fallback: determine the item currently under the mouse. This makes the shortcut
+            // reliable even if pointer-enter state was lost after a window interaction.
+            if (!homeId && lastPointerX >= 0) {
+                const under = document.elementFromPoint(lastPointerX, lastPointerY)?.closest?.('.deskIcon[data-id]');
+                if (under) homeId = under.dataset.id;
+            }
+            if (!dockId && lastPointerX >= 0) {
+                const under = document.elementFromPoint(lastPointerX, lastPointerY)?.closest?.('.dock-app[data-dock-id]');
+                if (under) dockId = under.dataset.dockId;
+            }
+            if (homeId) {
+                e.preventDefault(); e.stopPropagation();
+                if (homeId !== 'trash') {
+                    if (state.installedApps.some(a => a.id === homeId)) moveAppToTrash(homeId);
+                    else hideHomeApp(homeId);
+                }
+                return;
+            }
+            if (dockId) {
+                e.preventDefault(); e.stopPropagation();
+                removeFromDock(dockId);
             }
         });
+
+        let lastPointerX = -1, lastPointerY = -1;
+        document.addEventListener('pointermove', e => { lastPointerX = e.clientX; lastPointerY = e.clientY; }, {passive:true});
 
         function renderApps() {
             let g = $("appGrid");
@@ -2510,7 +2566,8 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
                 appcustomizer: renderAppCustomizer,
                 coolerloading: renderCoolerLoading,
                 cursor_sounds: renderCursorSounds,
-                luma_ai: renderLumaAI
+                luma_ai: renderLumaAI,
+                adaptive_icons: renderAdaptiveIcons
             } [id];
             const customRenderer = apps[id]?.renderer === "appcustomizer" ? renderAppCustomizer : (apps[id]?.html ? renderInstalledApp : renderer);
             setTimeout(() => {
@@ -2900,46 +2957,21 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
         }
 
         function renderHomeModule() {
-            let h = $("homeModule");
+            const h = $("homeModule");
             const d = $("desktop");
             if (!h) return;
-            d?.classList.toggle("home-glass-dashboard", state.homeModule?.builtIn === "glass-dashboard");
-            if (!state.homeModule) { h.innerHTML = ""; return; }
-            if (state.homeModule.builtIn === "glass-dashboard") {
-                const quick = [
-                    ["files","▣","Files","Browse your LUMA files"],
-                    ["browser","◎","Browser","Open the web"],
-                    ["store","▤","Store","Apps and games"],
-                    ["wallpaper","▧","Wallpaper","Change the desktop"],
-                    ["settings","⚙","Settings","System controls"],
-                    ["store_mp3_player","♫","Music","Pocket Music"],
-                    ["clockapp","◷","Clock","Time and alarms"],
-                    ["notes","≡","Notes","Quick notes"]
-                ];
-                h.innerHTML = `<div class="home-glass-wrap"><div class="home-glass-shell">
-                    <button class="hg-close" title="Hide dashboard" onclick="hideGlassDashboard()">×</button>
-                    <div class="hg-top"><div class="hg-dots"><i class="hg-dot"></i><i class="hg-dot"></i><i class="hg-dot"></i></div><span class="hg-brand">LUMA Desktop</span><span class="hg-sub">Glass Workspace</span><input class="hg-search" placeholder="Search LUMA" onkeydown="if(event.key==='Enter'){openApp('browser');setTimeout(()=>navigate(this.value),120)}"></div>
-                    <div class="hg-layout"><aside class="hg-side"><div class="hg-side-label">WORKSPACE</div><button class="active" onclick="renderHomeModule()"><span class="hg-mini-icon">⌂</span>Overview</button><button onclick="openApp('files')"><span class="hg-mini-icon">▣</span>Files</button><button onclick="openApp('browser')"><span class="hg-mini-icon">◎</span>Browser</button><button onclick="openApp('store')"><span class="hg-mini-icon">▤</span>Store</button><div class="hg-side-label" style="margin-top:auto">SYSTEM</div><button onclick="openApp('settings')"><span class="hg-mini-icon">⚙</span>Settings</button><button onclick="openApp('wallpaper')"><span class="hg-mini-icon">▧</span>Wallpaper</button></aside>
-                    <main class="hg-main"><div class="hg-welcome"><div><div class="hg-kicker">LUMA WORKSPACE</div><h1>Welcome back.</h1><p>A crisp HTML home screen — no stretched background image needed.</p></div><div class="hg-time"><strong id="hgHomeTime">--:--</strong><span id="hgHomeDate">--</span></div></div>
-                    <div class="hg-hero"><section class="hg-card hg-feature"><div class="hg-kicker">DESKTOP OVERVIEW</div><h2>Your workspace, in glass.</h2><p>Launch apps, manage files, customize the wallpaper, or jump straight into your music library from one clean dashboard.</p><div class="hg-actions"><button class="hg-action" onclick="openApp('files')">Open Files</button><button class="hg-action" onclick="openApp('browser')">Open Browser</button></div></section><section class="hg-card hg-stat"><b>DESKTOP MEMORY</b><strong id="hgRam">RAM —</strong><span>Browser memory estimate</span><div class="hg-progress"><i id="hgRamBar"></i></div><span style="margin-top:10px">Apps installed: ${Object.keys(apps).length}</span></section></div>
-                    <div class="hg-section"><div class="hg-section-head"><b>Quick launch</b><span>Open an app</span></div><div class="hg-apps">${quick.map(([id,ic,n,desc])=>`<button class="hg-app" onclick="openApp('${id}')"><span class="hg-app-icon">${esc(ic)}</span><b>${esc(n)}</b><small>${esc(desc)}</small></button>`).join('')}</div></div>
-                    <div class="hg-bottom"><section class="hg-card hg-list"><div class="hg-section-head"><b>Recent tools</b><span>LUMA</span></div>${quick.slice(0,4).map(([id,ic,n,desc])=>`<div class="hg-list-row"><span class="hg-list-icon">${esc(ic)}</span><div><b>${esc(n)}</b><small>${esc(desc)}</small></div></div>`).join('')}</section><section class="hg-card hg-list"><div class="hg-section-head"><b>Personalize</b><span>Design</span></div><div class="hg-list-row" onclick="openApp('wallpaper')" style="cursor:pointer"><span class="hg-list-icon">▧</span><div><b>Wallpaper Engine</b><small>Glass, Apple-inspired, motion and custom backgrounds</small></div></div><div class="hg-list-row" onclick="openApp('themestudio')" style="cursor:pointer"><span class="hg-list-icon">✦</span><div><b>Home Design</b><small>Switch between Classic and Glass Workspace</small></div></div><div class="hg-list-row" onclick="openApp('settings')" style="cursor:pointer"><span class="hg-list-icon">⚙</span><div><b>Settings</b><small>Sound, notifications and system controls</small></div></div></section></div>
-                    </main></div></div></div>`;
-                updateGlassDashboard();
+            d?.classList.remove("home-glass-dashboard");
+            // Glass Workspace was removed; custom home modules still work normally.
+            if (!state.homeModule || state.homeModule.builtIn === "glass-dashboard") {
+                if (state.homeModule?.builtIn === "glass-dashboard") {
+                    state.homeModule = null;
+                    state.homeStyle = "";
+                    try { save(); } catch (_) {}
+                }
+                h.innerHTML = "";
                 return;
             }
-            h.innerHTML = `<div class="home-module-inner"><div class="module-title">${esc(state.homeModule.name)}</div><iframe sandbox="allow-scripts allow-forms" srcdoc="${esc(state.homeModule.body||"")}"></iframe><button class="module-edit" onclick="openHomeModuleSettings()">⚙</button></div>`
-        }
-        function updateGlassDashboard(){
-            const t=$("hgHomeTime"),d=$("hgHomeDate"); if(t)t.textContent=new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'}); if(d)d.textContent=new Date().toLocaleDateString([], {weekday:'long',month:'long',day:'numeric'});
-            const r=$("hgRam"),b=$("hgRamBar"); const top=$("ramStatus")?.textContent||"RAM —"; if(r)r.textContent=top; if(b){const m=top.match(/(\d+)%/);b.style.width=(m?m[1]:8)+'%';}
-        }
-        setInterval(()=>{if(state.homeModule?.builtIn==='glass-dashboard')updateGlassDashboard()},1500);
-        function hideGlassDashboard(){state.homeModule=null;state.homeStyle='';save();renderHomeModule();notify('Home Screen','Glass Workspace hidden. Use Home Design to bring it back.')}
-        function setGlassWorkspace(){state.homeModule={builtIn:'glass-dashboard',name:'Glass Workspace'};state.homeStyle='glass-dashboard';state.wallpaper='linear-gradient(135deg,#22252a 0%,#0e1013 42%,#050608 100%)';state.wallpaperMode='image';applyTheme();save();renderHomeModule();notify('LUMA','Glass Workspace enabled')}
-
-        function openHomeModuleSettings() {
-            modal("Home Screen Module", `<p>${esc(state.homeModule?.name||"")}</p><button class="toolbtn" onclick="state.homeModule=null;save();renderHomeModule();closeModal()">Remove module</button>`, () => {})
+            h.innerHTML = `<div class="home-module-inner"><div class="module-title">${esc(state.homeModule.name)}</div><iframe sandbox="allow-scripts allow-forms" srcdoc="${esc(state.homeModule.body||"")}"></iframe><button class="module-edit" onclick="openHomeModuleSettings()">⚙</button></div>`;
         }
 
         let calcExpr = "",
@@ -3276,6 +3308,7 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
             {id:'store_welcome', name:'LUMA Welcome', icon:'✨', desc:'A little interactive welcome page for your desktop.', html:`<div style="height:100%;display:grid;place-items:center;text-align:center;font-family:system-ui;background:linear-gradient(135deg,#101827,#263b61);color:white"><div><div style="font-size:64px">✨</div><h1>Welcome to LUMA</h1><p>Your browser desktop, your rules.</p><button class="toolbtn" onclick="alert('Have fun with LUMA!')">Say hi</button></div></div>`},
             {id:'store_cursor_sounds', name:'Cursor & Sounds', icon:'⌁', desc:'Choose different cursors and little interface sound packs, including scroll effects.', renderer:'cursor_sounds'},
             {id:'store_luma_ai', name:'LUMA AI', icon:'✦', desc:'A local LUMA assistant with a simulated virtual machine and a safe handoff to ChatGPT for real AI answers.', renderer:'luma_ai'},
+            {id:'store_adaptive_icons', name:'Adaptive Icons', icon:'🌈', desc:'Automatically switch LUMA icons between grayscale and normal color based on the wallpaper.', renderer:'adaptive_icons'},
             {id:'store_movies', name:'Movies', icon:'▶', desc:'Open the LUMA Movies app with the Cinevaro web interface.', html:`<div style="width:100%;height:100%;min-height:600px;background:#050505;overflow:hidden"><iframe style="border:1px #FFFFFF none;width:100%;height:600px" src="https://cinevaro.app/" title="Movies" scrolling="no" frameborder="no" allow="fullscreen"></iframe></div>`},
             {id:'store_cooler_loading', name:'Cooler Loading', icon:'', desc:'Use the Apple-style loading screen and animated progress bar when LUMA refreshes or launches apps.', renderer:'coolerloading'},
             {id:'store_app_customizer', name:'App Customizer', icon:'🎨', desc:'Change the name and icon of apps in your LUMA desktop.', renderer:'appcustomizer'},
@@ -3292,9 +3325,64 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
             const a=apps[id];if(!a)return;const name=($('customAppName')?.value||'').trim()||a.name,icon=($('customAppIcon')?.value||'').trim()||a.icon,file=$('customAppImage')?.files?.[0]; const finish=(image)=>{state.appCustom=state.appCustom||{};state.appCustom[id]={name,icon,image:image||a.image||''};a.name=name;a.icon=icon;if(image)a.image=image;const stored=state.installedApps.find(x=>x.id===id);if(stored){stored.name=name;stored.icon=icon;if(image)stored.image=image;}if(windows[id])windows[id].el.querySelector('.win-title').textContent=name;save();renderApps();renderDock();renderDesktopIcons();if(windows.appcustomizer)renderAppCustomizer(windows.appcustomizer.content);notify('App Customizer',name+' was customized')}; if(file){const r=new FileReader();r.onload=()=>finish(String(r.result));r.readAsDataURL(file)}else finish('');
         }
         function resetAppCustomization(id){
-            const stored=state.installedApps.find(x=>x.id===id);if(state.appCustom)delete state.appCustom[id];const original=STORE_APPS.find(x=>x.id===id);const originals={browser:['LUMA Browser','🌐'],files:['File Manager','📁'],calc:['Calculator','🧮'],notes:['Notes','📝'],paint:['Paint','🎨'],terminal:['Terminal','⌘'],settings:['Settings','⚙️'],clockapp:['Clock','🕐'],about:['About LUMA','●'],wallpaper:['Wallpaper Engine','🖼️'],extensions:['Extensions','🧩'],themestudio:['Home Design','✨'],store:['LUMA Store','🛍️'],trash:['Trash','🗑️'],appcustomizer:['App Customizer','🎨'],store_mp3_player:['Music Player','🎵'],store_games_website:['Games Website','🎮'],store_cooler_loading:['Cooler Loading',''],store_cursor_sounds:['Cursor & Sounds','⌁'],store_movies:['Movies','▶'],store_luma_ai:['LUMA AI','✦']};
+            const stored=state.installedApps.find(x=>x.id===id);if(state.appCustom)delete state.appCustom[id];const original=STORE_APPS.find(x=>x.id===id);const originals={browser:['LUMA Browser','🌐'],files:['File Manager','📁'],calc:['Calculator','🧮'],notes:['Notes','📝'],paint:['Paint','🎨'],terminal:['Terminal','⌘'],settings:['Settings','⚙️'],clockapp:['Clock','🕐'],about:['About LUMA','●'],wallpaper:['Wallpaper Engine','🖼️'],extensions:['Extensions','🧩'],themestudio:['Home Design','✨'],store:['LUMA Store','🛍️'],trash:['Trash','🗑️'],appcustomizer:['App Customizer','🎨'],store_mp3_player:['Music Player','🎵'],store_games_website:['Games Website','🎮'],store_cooler_loading:['Cooler Loading',''],store_cursor_sounds:['Cursor & Sounds','⌁'],store_movies:['Movies','▶'],store_luma_ai:['LUMA AI','✦'],store_adaptive_icons:['Adaptive Icons','🌈']};
             if(originals[id]){apps[id].name=originals[id][0];apps[id].icon=originals[id][1];apps[id].image='';}else if(original){apps[id].name=original.name;apps[id].icon=original.icon;apps[id].image='';if(stored){stored.name=original.name;stored.icon=original.icon;stored.image='';}}
             save();renderApps();renderDock();renderDesktopIcons();if(windows.appcustomizer)renderAppCustomizer(windows.appcustomizer.content);notify('App Customizer','Original app appearance restored');
+        }
+
+        function setIconColorMode(mode){
+            state.adaptiveIcons = mode === 'auto' ? true : false;
+            state.iconColorMode = mode === 'normal' ? 'normal' : mode === 'grayscale' ? 'grayscale' : state.iconColorMode;
+            save(); applyIconColorMode();
+            if(windows.adaptive_icons) renderAdaptiveIcons(windows.adaptive_icons.content);
+        }
+        function applyIconColorMode(){
+            document.body.classList.toggle('icons-normal', state.iconColorMode === 'normal');
+            document.body.classList.toggle('icons-grayscale', state.iconColorMode !== 'normal');
+            document.documentElement.style.setProperty('--wallpaper-main', state.wallpaperMainColor || '#111216');
+            if(windows.adaptive_icons) renderAdaptiveIcons(windows.adaptive_icons.content);
+        }
+        function analyzeWallpaperImage(img){
+            if(!state.adaptiveIcons || !img) return;
+            try{
+                const c=document.createElement('canvas'), ctx=c.getContext('2d',{willReadFrequently:true});
+                const size=48; c.width=size; c.height=size; ctx.drawImage(img,0,0,size,size);
+                const data=ctx.getImageData(0,0,size,size).data;
+                let r=0,g=0,b=0,n=0,sat=0,luma=0;
+                for(let i=0;i<data.length;i+=16){
+                    const rr=data[i],gg=data[i+1],bb=data[i+2],mx=Math.max(rr,gg,bb),mn=Math.min(rr,gg,bb);
+                    r+=rr;g+=gg;b+=bb;n++; sat+=(mx-mn)/255; luma+=(.2126*rr+.7152*gg+.0722*bb)/255;
+                }
+                r=Math.round(r/n);g=Math.round(g/n);b=Math.round(b/n);
+                const avgSat=sat/n;
+                state.wallpaperMainColor=`rgb(${r}, ${g}, ${b})`;
+                // Colorful wallpapers get normal emoji/symbol colors; neutral wallpapers stay monochrome.
+                state.iconColorMode=avgSat>0.10 ? 'normal' : 'grayscale';
+                save(); applyIconColorMode();
+            }catch(e){
+                // Cross-origin images may block canvas sampling; keep the current mode safely.
+            }
+        }
+        function analyzeWallpaperFallback(source){
+            if(!state.adaptiveIcons) return;
+            const text=String(source||'').toLowerCase();
+            const colorful=/(#(?:ff|00|33|66|99|cc)[0-9a-f]{4,6}|rgb\(|gradient|blue|red|green|orange|purple|pink|teal|cyan|yellow)/.test(text);
+            state.iconColorMode=colorful?'normal':'grayscale'; save(); applyIconColorMode();
+        }
+        function renderAdaptiveIcons(c){
+            const mode=state.iconColorMode==='normal'?'normal':'grayscale';
+            c.innerHTML=`<div style="height:100%;overflow:auto;padding:22px;box-sizing:border-box;font-family:system-ui">
+                <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px"><div style="font-size:44px">🌈</div><div><h2 style="margin:0">Adaptive Icons</h2><p style="margin:4px 0;color:var(--muted)">Let LUMA detect the wallpaper's main color and choose icon colors automatically.</p></div></div>
+                <div class="wall-card"><b>Current mode</b><div style="display:flex;align-items:center;gap:12px;margin:12px 0"><div style="font-size:42px">🎮</div><div><strong>${mode==='normal'?'Normal color':'Grayscale'}</strong><div style="color:var(--muted);font-size:12px">Detected wallpaper color: ${esc(state.wallpaperMainColor||'unknown')}</div></div></div><button class="toolbtn" onclick="state.adaptiveIcons=!state.adaptiveIcons;if(state.adaptiveIcons){analyzeCurrentWallpaper()}else{state.iconColorMode='grayscale';save();applyIconColorMode()}">${state.adaptiveIcons?'Automatic detection: ON':'Automatic detection: OFF'}</button></div>
+                <div class="wall-card" style="margin-top:12px"><b>Preview</b><div style="display:flex;gap:18px;align-items:center;margin-top:10px;font-size:42px"><span>🎮</span><span>📁</span><span>⚙️</span><span>🌈</span><span>🎵</span></div><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="toolbtn" onclick="setIconColorMode('normal')">Use normal color</button><button class="toolbtn" onclick="setIconColorMode('grayscale')">Use grayscale</button><button class="toolbtn" onclick="state.adaptiveIcons=true;analyzeCurrentWallpaper()">Detect from wallpaper</button></div></div>
+            </div>`;
+        }
+        async function analyzeCurrentWallpaper(){
+            if(!state.adaptiveIcons)return;
+            const img=$('wallpaperMedia')?.querySelector('img');
+            if(img && img.complete && img.naturalWidth){analyzeWallpaperImage(img);return;}
+            if(img){img.addEventListener('load',()=>analyzeWallpaperImage(img),{once:true});return;}
+            analyzeWallpaperFallback(state.wallpaper||'');
         }
 
         function renderCursorSounds(c){
@@ -3603,7 +3691,7 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
                 panel.innerHTML=`<div class="we-section-head"><div><b>Built-in presets</b><small>Choose a polished desktop background.</small></div></div>
                 <div class="wall-grid we-presets">
                   <button class="wall-choice we-default" onclick="setWallpaperPreset('', 'image')"><span>Default Blue</span><small>LUMA default</small></button>
-                  <button class="wall-choice glass-layout-choice" onclick="setGlassWorkspace()"><span>Glass Workspace</span><small>HTML dashboard • crisp glass UI</small></button>
+                  <button class="wall-choice" onclick="state.homeModule=null;state.homeStyle='';save();applyTheme();renderHomeModule();notify('Home Design','Classic desktop enabled')"><span>Classic Desktop</span><small>Standard LUMA desktop layout</small></button>
                   <button class="wall-choice we-bigsur" onclick="setWallpaperPreset('linear-gradient(160deg,#071323 0%,#122c45 38%,#06111d 68%,#02070d 100%)','image')"><span>Big Sur Night</span><small>Dark coast • Apple-inspired</small></button>
                   <button class="wall-choice we-bigsurdawn" onclick="setWallpaperPreset('linear-gradient(145deg,#f0a35b 0%,#b74635 34%,#34223a 67%,#071321 100%)','image')"><span>Big Sur Dawn</span><small>Warm mountain glow</small></button>
                   <button class="wall-choice we-monterey" onclick="setWallpaperPreset('linear-gradient(160deg,#0b1b30,#1c4660 45%,#050c16 100%)','image')"><span>Monterey Blue</span><small>Deep ocean tones</small></button>
@@ -3633,7 +3721,7 @@ function quickBlackWallpaper(){ state.wallpaper='';state.wallpaperMode='image';a
         async function setWallpaperURL(){ let u=$("wallEngineURL")?.value.trim(); if(!u)return; await clearWallpaperBlob(); state.wallpaper=u; state.wallpaperMode='image'; await applyTheme(); notify('Wallpaper Engine','Wallpaper URL applied') }
         function renderThemeStudio(c){
             c.innerHTML=`<div style="padding:18px;overflow:auto;height:100%"><h2>✨ Home Design</h2><p style="color:var(--muted)">Change the visual style of your LUMA home screen.</p>
-            <div class="wall-card"><b>Home screen styles</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="toolbtn" onclick="setGlassWorkspace()">Glass Workspace</button><button class="toolbtn" onclick="state.homeModule=null;state.homeStyle='';save();applyTheme();renderHomeModule();notify('Home Design','Classic desktop restored')">Classic</button><button class="toolbtn" onclick="setHomeStyle('home-clean')">Clean</button><button class="toolbtn" onclick="setHomeStyle('home-blur')">Glass Blur</button><button class="toolbtn" onclick="setHomeStyle('home-minimal')">Minimal</button><button class="toolbtn" onclick="setHomeStyle('home-large-icons')">Large Icons</button></div><p style="color:var(--muted);font-size:11px;margin:9px 0 0">Glass Workspace is rendered as HTML/CSS so the interface stays sharp at any screen size.</p></div>
+            <div class="wall-card"><b>Home screen styles</b><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="toolbtn" onclick="state.homeModule=null;state.homeStyle='';save();applyTheme();renderHomeModule();notify('Home Design','Classic desktop restored')">Classic</button><button class="toolbtn" onclick="setHomeStyle('home-clean')">Clean</button><button class="toolbtn" onclick="setHomeStyle('home-blur')">Glass Blur</button><button class="toolbtn" onclick="setHomeStyle('home-minimal')">Minimal</button><button class="toolbtn" onclick="setHomeStyle('home-large-icons')">Large Icons</button></div><p style="color:var(--muted);font-size:11px;margin:9px 0 0">Choose a home screen style for the LUMA desktop.</p></div>
             <div class="wall-card"><b>Quick setup</b><p style="color:var(--muted)">Wallpaper Engine controls the background. This app controls the desktop design.</p><button class="toolbtn" onclick="openApp('wallpaper')">Open Wallpaper Engine</button></div></div>`
         }
         function setHomeStyle(style){state.homeStyle=style;applyTheme();notify('Home Design','Home screen style changed')}
@@ -3718,9 +3806,23 @@ setInterval(updateWidgets,1000);
 function renderDesktopIcons(){
     const root=$("desktopIcons");if(!root)return;
     const base=[['files'],['browser'],['notes'],['settings'],['store'],['wallpaper'],['extensions'],['themestudio'],['trash'],...state.installedApps.map(a=>[a.id])];
-    const defs=base.filter(([id])=>!(state.homeHidden||[]).includes(id)).map(x=>[x[0],minimalIcon(x[0],apps[x[0]]?.icon||'□'),apps[x[0]]?.name||x[0]]);
-    root.innerHTML=defs.map(([id,icon,name],i)=>{const p=state.homeIcons[id]||{x:15+(Math.floor(i/6)*100),y:55+(i%6)*92};state.homeIcons[id]=p;return `<div class="deskIcon grid-item" data-id="${esc(id)}" style="left:${p.x}px;top:${p.y}px" ondblclick="openApp('${esc(id)}')" onmouseenter="homeHoverId='${esc(id)}'" onmouseleave="if(homeHoverId==='${esc(id)}')homeHoverId=null"><span class="ico minimal-icon">${esc(icon)}</span>${esc(name)}</div>`}).join('');
-    root.querySelectorAll('.grid-item').forEach(el=>{let drag=false,sx=0,sy=0,ox=0,oy=0;el.addEventListener('pointerdown',e=>{drag=true;el.setPointerCapture(e.pointerId);const p=state.homeIcons[el.dataset.id];sx=e.clientX;sy=e.clientY;ox=p.x;oy=p.y;el.classList.add('dragging')});el.addEventListener('pointermove',e=>{if(!drag)return;const p=state.homeIcons[el.dataset.id];p.x=Math.max(5,ox+e.clientX-sx);p.y=Math.max(40,oy+e.clientY-sy);el.style.left=p.x+'px';el.style.top=p.y+'px'});el.addEventListener('pointerup',()=>{if(!drag)return;drag=false;el.classList.remove('dragging');const p=state.homeIcons[el.dataset.id],cell=92;p.x=Math.round(p.x/cell)*cell+15;p.y=Math.round((p.y-40)/cell)*cell+40;p.x=Math.min(Math.max(5,p.x),innerWidth-95);p.y=Math.min(Math.max(40,p.y),innerHeight-115);el.style.left=p.x+'px';el.style.top=p.y+'px';el.classList.add('snapping');setTimeout(()=>el.classList.remove('snapping'),300);save()})});
+    const defs=base.filter(([id])=>!(state.homeHidden||[]).includes(id)).map(x=>[x[0],apps[x[0]]?.icon||minimalIcon(x[0],'□'),apps[x[0]]?.name||x[0]]);
+    const cell=92, startX=15, startY=40, cols=Math.max(1,Math.floor((innerWidth-30)/cell));
+    root.innerHTML=defs.map(([id,icon,name],i)=>{
+        let p=state.homeIcons[id];
+        if(!p){
+            p={x:startX+(i%cols)*cell,y:startY+Math.floor(i/cols)*cell};
+        }else{
+            p={x:startX+Math.round((Number(p.x||startX)-startX)/cell)*cell,y:startY+Math.round((Number(p.y||startY)-startY)/cell)*cell};
+            p.x=Math.min(Math.max(startX,p.x),Math.max(startX,innerWidth-95));
+            p.y=Math.min(Math.max(startY,p.y),Math.max(startY,innerHeight-115));
+        }
+        state.homeIcons[id]=p;
+        const appObj = apps[id] || {id, icon, name};
+        return `<div class="deskIcon grid-item" data-id="${esc(id)}" style="left:${p.x}px;top:${p.y}px" ondblclick="openApp('${esc(id)}')" onmouseenter="homeHoverId='${esc(id)}'" onmouseleave="if(homeHoverId==='${esc(id)}')homeHoverId=null"><span class="ico">${iconHTML({...appObj,id})}</span>${esc(name)}</div>`
+    }).join('');
+    save();
+    root.querySelectorAll('.grid-item').forEach(el=>{let drag=false,sx=0,sy=0,ox=0,oy=0;el.addEventListener('pointerdown',e=>{drag=true;el.setPointerCapture(e.pointerId);const p=state.homeIcons[el.dataset.id];sx=e.clientX;sy=e.clientY;ox=p.x;oy=p.y;el.classList.add('dragging')});el.addEventListener('pointermove',e=>{if(!drag)return;const p=state.homeIcons[el.dataset.id];p.x=Math.max(5,ox+e.clientX-sx);p.y=Math.max(40,oy+e.clientY-sy);el.style.left=p.x+'px';el.style.top=p.y+'px';const t=document.querySelector('.deskIcon[data-id=\"trash\"]');if(t&&el.dataset.id!=='trash'){const r=t.getBoundingClientRect();t.classList.toggle('trash-drop-hover',e.clientX>=r.left-12&&e.clientX<=r.right+12&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12)}});el.addEventListener('pointerup',e=>{if(!drag)return;drag=false;el.classList.remove('dragging');const th=document.querySelector('.deskIcon[data-id=\"trash\"]');if(th)th.classList.remove('trash-drop-hover');const id=el.dataset.id;const trashEl=document.querySelector('.deskIcon[data-id=\"trash\"]');if(trashEl){const r=trashEl.getBoundingClientRect();if(e.clientX>=r.left-12&&e.clientX<=r.right+12&&e.clientY>=r.top-12&&e.clientY<=r.bottom+12&&id!=='trash'){if(state.installedApps.some(a=>a.id===id)){moveAppToTrash(id)}else{hideHomeApp(id);notify('Trash',`${apps[id]?.name||id} was moved to Trash from the Home Screen`);}return;}}const p=state.homeIcons[id],cell=92;p.x=Math.round(p.x/cell)*cell+15;p.y=Math.round((p.y-40)/cell)*cell+40;p.x=Math.min(Math.max(5,p.x),innerWidth-95);p.y=Math.min(Math.max(40,p.y),innerHeight-115);el.style.left=p.x+'px';el.style.top=p.y+'px';el.classList.add('snapping');setTimeout(()=>el.classList.remove('snapping'),300);save()})});
 }
 function hideHomeApp(id){if(!id)return;state.homeHidden=Array.isArray(state.homeHidden)?state.homeHidden:[];if(!state.homeHidden.includes(id)){state.homeHidden.push(id);save();renderDesktopIcons();notify('Home Screen',`${apps[id]?.name||id} was removed from the Home Screen. It is still available in Applications.`);}homeHoverId=null;}
 
@@ -3728,16 +3830,16 @@ function hideHomeApp(id){if(!id)return;state.homeHidden=Array.isArray(state.home
             modal('LUMA System Information', `
                 <div style="max-height:68vh;overflow:auto;padding:4px 6px">
                     <div class="wall-card" style="margin-bottom:12px">
-                        <h3 style="margin-top:0">LUMA 3.34</h3>
+                        <h3 style="margin-top:0">LUMA 3.41</h3>
                         <p style="color:var(--muted);margin:5px 0">A browser-based simulated desktop environment with a modern monochrome interface. This page documents the current LUMA update history and keyboard shortcuts.</p>
                     </div>
                     <div class="wall-card" style="margin-bottom:12px">
                         <h3 style="margin-top:0">Update history</h3>
                         <div style="display:grid;gap:8px">
-                            <div><b>3.36</b> — Added LUMA AI with a local assistant, simulated virtual machine, and ChatGPT handoff.</div>
+                            <div><b>3.41</b> — Added Adaptive Icons, which detects wallpaper color and switches icons between grayscale and normal color.</div><div><b>3.36</b> — Added LUMA AI with a local assistant, simulated virtual machine, and ChatGPT handoff.</div>
                             <div><b>3.35</b> — Removed the lock screen so LUMA boots directly to the desktop.</div>
                             <div><b>3.34</b> — Added the Movies Store app with an embedded Cinevaro interface.</div>
-                            <div><b>3.33</b> — Added the crisp HTML Glass Workspace home screen and a matching Wallpaper Engine layout preset, with glass panels, app launchers, RAM display, and responsive styling.</div>
+                            <div><b>3.33</b> — Added expanded home screen customization and Wallpaper Engine layout options.</div>
                             <div><b>3.32</b> — Added the reference lock screen, notification banners with a settings toggle, Home Screen hide shortcut, collision-blocked windows, minimal monochrome icons, and a live browser RAM estimate.</div>
                             <div><b>3.30</b> — Added the macOS-style Dock polish and Apple-inspired Wallpaper Engine presets.</div>
                             <div><b>3.29</b> — Swapped in the new Apple logo loading screen and added Cursor & Sounds with cursor choices and scroll-aware sound effects.</div>
@@ -3777,7 +3879,7 @@ function hideHomeApp(id){if(!id)return;state.homeHidden=Array.isArray(state.home
                     </div>
                     <div class="wall-card">
                         <h3 style="margin-top:0">Key binds</h3>
-                        <div class="setting-row"><span><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></span><span>Remove the Home Screen app currently being hovered from view. It remains available in Applications. If no Home Screen app is hovered, the existing Dock removal behavior is used.</span></div>
+                        <div class="setting-row"><span><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></span><span>Delete the Home Screen app currently under the mouse. Built-in apps are removed from the Home Screen only; custom apps are moved to Trash. If no Home Screen app is under the mouse, the Dock item under the mouse is removed from the Dock.</span></div>
                         <div class="setting-row"><span><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>W</kbd></span><span>Close the active browser tab.</span></div>
                         <div class="setting-row"><span><kbd>Enter</kbd></span><span>Submit a LUMA Browser address/search, or calculate in Calculator.</span></div>
                         <div class="setting-row"><span><kbd>Backspace</kbd></span><span>Delete one character in Calculator.</span></div>
@@ -3807,11 +3909,10 @@ function hideHomeApp(id){if(!id)return;state.homeHidden=Array.isArray(state.home
             }
             modal("LUMA sleeping", `<div style="text-align:center;padding:20px"><div style="font-size:42px;font-weight:700">Z</div><p style="color:var(--muted)">This is a simulated sleep state.</p><button class="toolbtn" onclick="closeModal()">Wake LUMA</button></div>`, () => {});
         }
-
-        // LUMA 3.34 migration: use the crisp HTML Glass Workspace by default for existing installations that have no custom Home Screen module.
-        if (!state.homeModule) {
-            state.homeModule = {builtIn:"glass-dashboard", name:"Glass Workspace"};
-            state.homeStyle = "glass-dashboard";
+        // Remove the retired Glass Workspace from older saved installations.
+        if (state.homeModule?.builtIn === "glass-dashboard" || state.homeStyle === "glass-dashboard") {
+            state.homeModule = null;
+            state.homeStyle = "";
             try { save(); } catch (_) {}
         }
 
