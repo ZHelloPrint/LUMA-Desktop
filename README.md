@@ -48,3 +48,16 @@ https://tinyurl.com/CSOSBrowser
 ## Notes
 
 LUMA Desktop is a browser simulation. It does not control or shut down the real computer.
+
+
+
+
+
+
+-----
+
+
+
+
+
+
